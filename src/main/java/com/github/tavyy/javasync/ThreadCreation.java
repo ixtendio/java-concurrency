@@ -1,5 +1,8 @@
 package com.github.tavyy.javasync;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ThreadCreation {
 
     public static void main(String[] args) throws Exception {
@@ -13,7 +16,7 @@ public class ThreadCreation {
         //Wait both threads to finish before exit the program
         thread1.join();
         thread2.join();
-        System.out.println(Thread.currentThread().getName() + ": End of main thread");
+        log.info("End of main thread");
     }
 
     private static Thread newThread() {
@@ -21,13 +24,13 @@ public class ThreadCreation {
 
             @Override
             public void run() {
-                System.out.println(Thread.currentThread().getName() + ": Override the run method");
+                log.info("Override the run method");
             }
 
         };
     }
 
     private static Thread newThreadWithRunnable() {
-        return new Thread(() -> System.out.println(Thread.currentThread().getName() + ": With Runnable"));
+        return new Thread(() -> log.info("With Runnable"));
     }
 }
