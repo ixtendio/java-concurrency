@@ -18,7 +18,6 @@ public class ForkJoinIndexesFinder {
         Path filePath = Path.of(ForkJoinIndexesFinder.class.getResource("/numbers.txt").toURI());
         List<Integer> list = Files.readAllLines(filePath).stream().map(Integer::parseInt).collect(Collectors.toList());
 
-
         long startTime = System.currentTimeMillis();
         sequentiallyExecution(list, element);
         long endTime = System.currentTimeMillis();

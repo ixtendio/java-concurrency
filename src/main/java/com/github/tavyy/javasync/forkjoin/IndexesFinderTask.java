@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 class IndexesFinderTask extends RecursiveTask<Set<Integer>> {
 
-    static final int MAX_THREADS = Runtime.getRuntime().availableProcessors() * 2;
+    static final int MAX_THREADS = Runtime.getRuntime().availableProcessors();
     private static final AtomicInteger tasks = new AtomicInteger(0);
     private final int splitIndex;
     private final int element;
