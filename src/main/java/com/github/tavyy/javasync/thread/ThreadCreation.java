@@ -1,4 +1,4 @@
-package com.github.tavyy.javasync;
+package com.github.tavyy.javasync.thread;
 
 import lombok.extern.slf4j.Slf4j;
 

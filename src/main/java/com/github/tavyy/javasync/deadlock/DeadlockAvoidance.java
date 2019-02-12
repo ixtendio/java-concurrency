@@ -10,7 +10,7 @@ public class DeadlockAvoidance {
 
     private static final Thread worker1 = new Thread(() -> {
         synchronized (muttex1) {
-            sleep(5);
+            sleep5Ms();
             synchronized (muttex2) {
                 log.info("Worker1 finished");
             }
@@ -19,16 +19,16 @@ public class DeadlockAvoidance {
 
     private static final Thread worker2 = new Thread(() -> {
         synchronized (muttex1) {
-            sleep(5);
+            sleep5Ms();
             synchronized (muttex2) {
                 log.info("Worker2 finished");
             }
         }
     });
 
-    static void sleep(int time) {
+    private static void sleep5Ms() {
         try {
-            Thread.sleep(time);
+            Thread.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
