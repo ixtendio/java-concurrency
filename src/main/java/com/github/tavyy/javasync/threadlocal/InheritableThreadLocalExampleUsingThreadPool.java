@@ -11,12 +11,12 @@ import static com.github.tavyy.javasync.util.RunnableWithException.runSafe;
 @Slf4j
 public class InheritableThreadLocalExampleUsingThreadPool {
 
-    private static final ThreadLocal<Integer> THREAD_LOCAL = new InheritableThreadLocal<>();
+    private static final ThreadLocal<Integer> threadLocal = new InheritableThreadLocal<>();
 
     public static void main(String[] args) throws Exception {
 
         CountDownLatch cdl = new CountDownLatch(10);
-        THREAD_LOCAL.set(1);
+        threadLocal.set(1);
         log.info("The thread local value on the main thread is 1");
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
@@ -25,7 +25,7 @@ public class InheritableThreadLocalExampleUsingThreadPool {
                 try {
                     for (int j = 0; j < 5; j++) {
                         Thread.sleep(100);
-                        log.info("ThreadLocal value: {}", THREAD_LOCAL.get());
+                        log.info("ThreadLocal value: {}", threadLocal.get());
                     }
                 } finally {
                     cdl.countDown();
@@ -34,7 +34,7 @@ public class InheritableThreadLocalExampleUsingThreadPool {
         }
 
         Thread.sleep(100);
-        THREAD_LOCAL.set(2);
+        threadLocal.set(2);
         log.info("The thread local value on the main thread is 2");
         cdl.await();
         executor.shutdown();
