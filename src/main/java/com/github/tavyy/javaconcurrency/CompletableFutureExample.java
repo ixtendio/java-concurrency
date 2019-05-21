@@ -79,11 +79,11 @@ public class CompletableFutureExample {
     }
 
     public static void main(String[] args) throws Exception {
-        CompletableFuture<Integer> combine2 = supplyAsync(get10()).thenCombine(supplyAsync(get20()), (a, b) -> a + b);
+        CompletableFuture<Integer> combine2 = supplyAsync(get10()).thenCombine(supplyAsync(get20()), Integer::sum);
         log.info("COMBINE 2: 10 + 20 = {}", combine2.get());
 
-        CompletableFuture<Integer> combine20With30 = supplyAsync(get20()).thenCombine(supplyAsync(get30()), (a, b) -> a + b);
-        CompletableFuture<Integer> combine10With20And30 = supplyAsync(get10()).thenCombine(combine20With30, (a, b) -> a + b);
+        CompletableFuture<Integer> combine20With30 = supplyAsync(get20()).thenCombine(supplyAsync(get30()), Integer::sum);
+        CompletableFuture<Integer> combine10With20And30 = supplyAsync(get10()).thenCombine(combine20With30, Integer::sum);
         log.info("COMBINE 3: 10 + 20 + 30 = {}", combine10With20And30.get());
 
 
@@ -99,7 +99,7 @@ public class CompletableFutureExample {
         log.info("COMPOSE: 10 * 10 = {}", compose.get());
 
         CompletableFuture<Integer> withException = supplyAsync(get10())
-                .thenCombine(supplyAsync(throwException()), (a, b) -> a + b)
+                .thenCombine(supplyAsync(throwException()), Integer::sum)
                 .exceptionally(e -> -1);
         log.info("EXCEPTIONALLY: {}", withException.get());
     }
